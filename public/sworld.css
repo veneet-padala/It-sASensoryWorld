@@ -1,0 +1,19 @@
+/*.swimage{
+    height: 100px;
+    border: 1px solid #9fcdff;
+}
+
+
+.sworld-input {
+    color: black;
+    font-weight: bold;
+}*/
+
+li.active > a{
+	background-color:#ffa500 !important;
+}
+
+thead > tr{
+	background-color:#337ab7;
+	color:white;
+}

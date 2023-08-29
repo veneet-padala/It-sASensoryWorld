@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>It's a Sensory World!</title>
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-messaging.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-functions.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-storage.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+    
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/css/jqueryui-editable.css"  type="text/css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/js/jqueryui-editable.min.js"></script>
+  <!--link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/css/jqueryui-editable.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/js/jqueryui-editable.min.js"></script-->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBcwdvea1BUt2_91HXLL52mAcExRK1fHoo",
+      authDomain: "sworld-524ed.firebaseapp.com",
+      databaseURL: "https://sworld-524ed.firebaseio.com",
+      projectId: "sworld-524ed",
+      storageBucket: "sworld-524ed.appspot.com",
+      messagingSenderId: "548269934066"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <!-- script src="sworld.css" type="text/css" rel="stylesheet"></script-->
+  <link href="sworld.css" rel="stylesheet" />
+  <script src="app.js?12311"></script>
+
+</head>
+<body>
+<div class="container-fluid " style="margin:25px;padding-left:180px;">
+	<img src="http://itsasensoryworld.org/wp-content/uploads/2018/11/isw_large2.png" />
+  <!--img  src="https://firebasestorage.googleapis.com/v0/b/sworld-524ed.appspot.com/o/Its-a-Sensory-World-logo.png?alt=media&token=c3a327f5-16fb-48a6-96ba-4d2c6a4dec2b" class="img-responsive" alt="Responsive image"-->
+</div>
+
+<div style="padding: 1px;"  id = "tabsHeader">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist" style="text-transform: uppercase;">
+    <li role="presentation" class="active"><a style="background-color:#3cc5e8;color:white;" href="#uploadFiles" aria-controls="uploadFiles" role="tab" data-toggle="tab">Upload Images</a></li>
+    <li role="presentation"><a style="background-color:#3cc5e8;color:white;" href="#lessonPlan" aria-controls="lessonPlan" role="tab" data-toggle="tab">Create Lesson Plan</a></li>
+    <li role="presentation"><a style="background-color:#3cc5e8;color:white;" href="#showAllLesson" aria-controls="lesson" role="tab" data-toggle="tab">Show All Lessons</a> </li>
+    <li role="presentation"><a style="background-color:#3cc5e8;color:white;" href="#lesson" aria-controls="lesson" role="tab" data-toggle="tab">Run Lesson</a> </li>
+  </ul>
+
+
+
+
+  <!-- Tab panes -->
+  <div class="tab-content" id = "tabs" style="padding: 5px;">
+		<div role="tabpanel" class="tab-pane active" id="uploadFiles">
+    			<div class="row" style="margin-top:0px;padding:10px;">
+        			<div class="col-md-6">
+		    			<div class="row">
+		    				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding-left:35px;">Label:</div>
+		    				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><input type="text" id="label1" class='form-control mb5' style="width:250px;"/></div>
+		    			</div>
+		    			<div class="row" style="margin-top:5px;">
+		    				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding-left:35px;">Upload Image:</div>
+		    				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><input type="file" onchange="uploadFile(this.files)"/></div>
+		    			</div>		    			
+        			</div>  
+        			<div class="col-md-6">
+		    			<div class="row" style="padding:5px 5px; margin: 5px 5px;">
+		    				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Picture:</div>
+		    				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"><img id="imgUpload" src="" width="100vw"/></div>
+		    			</div>	
+        			</div>         			      			
+      		</div>
+      		<div style="margin-top:30px;padding:8px 5px;background:#f5f5f5;">
+	      		<div class="row">
+			    		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+			    			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><input type="search" id='search1' placeholder="Search" class='form-control mb5' style="width:250px;"></div>
+			    			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button type="button" class="btn btn-primary" onclick="showData()" ontimeupdate="" >Go</button></div>
+					</div>
+			    		<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"></div>	          	
+	     		</div>  
+      		</div>  
+      		<div id="Images" style="padding: 5px;"></div>  
+    		</div>
+    <div role="tabpanel" class="tab-pane" id="lessonPlan">
+      <div class="container-fluid">
+        <div class="row">
+          	<div class="col-md-4"></div>
+          	<div class="col-md-4 well">
+          		<div style="font-weight:bold;text-align:center;">CREATE A LESSION</div>
+          		<br>
+		    		<div class="row">
+		    			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="padding-left:35px;margin-top:5px;">Name:</div>
+		    			<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7"><input type="text" id="lessonName" class='form-control mb5' style="width:250px;"/></div>
+		    		</div>   
+		    		<div class="row" style="margin-top:5px;">
+		    			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="padding-left:35px;margin-top:5px;">Level:</div>
+		    			<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7"><input type="text" id="lessonLevel" class='form-control mb5' style="width:250px;"/></div>
+		    		</div> 	
+		    		<div class="row" style="margin-top:5px;">
+		    			<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="padding-left:35px;margin-top:5px;">Question Text:</div>
+		    			<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7"><input type="text" id="questionLabel" class='form-control mb5' style="width:250px;"/></div>
+		    		</div> 		    			    		       		
+          	</div>
+          	<div class="col-md-4">
+          		<div class="row">
+          			<div class="col-md-5"></div>
+          			<div class="col-md-5"></div>
+          			<div class="col-md-2">
+          				<button type="button" onclick="lessonPlan()" style="margin-top: 1px;text-align:right;" class = "btn btn-success" >Save</button>
+          			</div>
+          		</div>
+          	</div>
+        </div>
+        <div class="row">
+        		<div class="col-md-4"></div>
+          	<div id="questionDroppableDiv" class="col-md-4 swdroppable" style="height: 100px;padding: 5px;margin-top:2px;text-align: center;font-weight:bold;box-shadow: 1px 1px 1px 1px #337ab7;border-radius: 5px;">QUESTION</div>
+          	<div class="col-md-4 " style="height: 100px;"></div>
+        </div>
+        <div class="row">
+        		<div class="col-md-1"></div>
+        		<div id="subjectDroppableDiv" class="col-md-3 swdroppable" style="height: 100px; padding: 5px;margin:20px;text-align: center;font-weight:bold;box-shadow: 1px 1px 1px 1px #ffa500;border-radius: 5px;">SUBJECT</div>
+          	<div id="objectDroppableDiv" class="col-md-3 swdroppable" style="height: 100px; padding: 5px;margin:20px;text-align: center;font-weight:bold;box-shadow: 1px 1px 1px 1px #ffa500;border-radius: 5px;">OBJECT</div>
+          	<div id="verbDroppableDiv" class="col-md-3 swdroppable" style="height: 100px;padding: 5px;margin:20px;text-align: center;font-weight:bold;box-shadow: 1px 1px 1px 1px #ffa500;border-radius: 5px;">VERB</div>
+          	<div class="col-md-2"></div>
+        </div>
+        <br>
+        <div class="row" style="padding:8px 0px;background:#f5f5f5;">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+			    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><input  class='form-control mb5' placeholder="Search images" style="width:250px;" type="search" id="find" /></div>
+			    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button class="btn btn-primary" type="button" onclick="searching('#cardPile', '#find')" >Go</button></div>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"></div>	
+        </div>
+        <div id="cardPile" style="padding: 20px;">
+        </div>        
+      </div>    
+    </div>
+
+
+    <div role="tabpanel" class="tab-pane" id="showAllLesson">
+        <div class="row" style="padding:8px 0px;background:#f5f5f5;">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+			    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><input  class='form-control mb5' placeholder="Search" style="width:250px;" type="search" id="searchSpecificLesson" /></div>
+			    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button id="showAllLessons" class="btn btn-primary" type="button" onclick="loadLesson()" >Show Lessons</button></div>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"></div>	
+        </div>
+      	<div class="container-fluid">
+        		<div id="lessonTable" style="padding: 5px;">
+        		</div>
+      	</div>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="lesson">
+    		<div class="row" style="padding:8px 0px;background:#f5f5f5;">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+			    <button id="loadLesson" class="btn btn-success" type="button" onclick="loadLesson()" >Run</button>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+				<div class="row">
+					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+						<span style="margin-right:5px;">1/10</span>
+						<button id="skipLesson" class="btn btn-danger" type="button" onclick="" >Skip</button>
+					</div>					
+				</div>
+			</div>	
+        </div>
+      <div class="container-fluid">
+        <div id = "questionText" align = "center" style="padding:10px;font-size:18px;font-weight:bold;margin:5px;text-transform: uppercase;"></div>
+        <div class="row">
+        		<div class="col-md-4"></div>
+          	<div class="col-md-4 swdroppable" id="questionRunLesson" style="height: 100px;padding: 5px;margin-top:2px;text-align: center;font-weight:bold;box-shadow: 1px 1px 1px 1px #337ab7;border-radius: 5px;">QUESTION</div>
+          	<div class="col-md-4 " style="height: 100px;"></div>
+        </div>
+        <div class="row">
+        		<div class="col-md-1"></div>
+        		<div id="subjectRunLesson" class="col-md-3 swdroppable" style="height: 100px; padding: 5px;margin:20px;text-align: center;font-weight:bold;box-shadow: 1px 1px 1px 1px #ffa500;border-radius: 5px;text-transform: uppercase;">SUBJECT</div>
+          	<div id="objectRunLesson" class="col-md-3 swdroppable" style="height: 100px; padding: 5px;margin:20px;text-align: center;font-weight:bold;box-shadow: 1px 1px 1px 1px #ffa500;border-radius: 5px;text-transform: uppercase;">OBJECT</div>
+          	<div id="verbRunLesson" class="col-md-3 swdroppable" style="height: 100px;padding: 5px;margin:20px;text-align: center;font-weight:bold;box-shadow: 1px 1px 1px 1px #ffa500;border-radius: 5px;text-transform: uppercase;">VERB</div>
+          	<div class="col-md-2"></div>
+        </div>        
+        <div class="row">
+        		<div class="col-md-5"></div>
+          	<div class="col-md-4 swdroppable" id="congrats" style="height: 100px; padding: 25px;margin:15px 1px 15px 80px;text-align: center; visibility: hidden;font-weight:bold;font-size:16px;width: 100px;height: 100px;background-color:#5cb85c;border-radius: 50%;">GOOD JOB!</div>
+          	<div class="col-md-3"></div>
+        </div>      
+        <div class="row" style="padding:8px 0px;background:#f5f5f5;">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+			    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><input  class='form-control mb5' placeholder="Search images" style="width:250px;" type="search" id="finder" /></div>
+			    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><button class="btn btn-primary" type="button" onclick="searching('#lessonPics', '#finder')" >Find</button></div>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"></div>	
+        </div>  
+        <div id="lessonPics">
+        </div>                
+      </div>
+
+
+
+      <!--   <div role="tabpanel" class="tab-pane" id="lesson">
+           <div class="container-fluid">
+             <div class="row">
+               <div class="col-md-4 swimage"></div>
+               <div class="col-md-4" style="height: 100px; border: 1px solid #9fcdff ;">
+                 Create a lesson
+                 <br>
+                 Name:<input type="text" id="test4"/><br/>
+                 <br>
+                 Level:<input type="text" id="test5"/><br/>
+
+               </div>
+             </div>
+               <div class="row">
+                 <div id="test1" class="col-md-4 swdroppable" style="height: 100px; border: 1px solid #9fcdff ;">test</div>
+                 <div id="test2" class="col-md-4 swdroppable" style="height: 100px; border: 1px solid #9fcdff ;">test</div>
+                 <div id="test3" class="col-md-4 swdroppable" style="height: 100px; border: 1px solid #9fcdff ;">test</div>
+               </div>
+             <div class="row">
+               <div>
+                 <button type="button" onclick="searching()"  >Find</button>
+                 Search:<input type="search" id="show" />
+               </div>
+               <div id="Pile">
+
+  -->
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+
+</html>
